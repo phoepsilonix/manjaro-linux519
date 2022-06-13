@@ -5,21 +5,19 @@
 # Thomas Baechler <thomas@archlinux.org>
 
 _basekernel=5.19
-_rc=rc1
-_commit=f2906aa863381afb0015a9eb7fefad885d4e5a56
+_rc=rc2
 pkgrel=1
-
 _basever=${_basekernel//.}
 _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
-pkgver=5.19rc1.220606.gf2906aa
+pkgver=5.19rc2
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 makedepends=(bc docbook-xsl libelf pahole git inetutils kmod xmlto cpio perl tar xz)
 options=('!strip')
-source=("linux519-$_commit.zip::https://codeload.github.com/torvalds/linux/zip/$_commit"
+source=("https://git.kernel.org/torvalds/t/linux-${_basekernel}-${_rc}.tar.gz"
         #"https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
         #"https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         'config'
@@ -45,17 +43,17 @@ source=("linux519-$_commit.zip::https://codeload.github.com/torvalds/linux/zip/$
 #        '0412-bootsplash.patch'
 #        '0413-bootsplash.gitpatch'
          )
-sha256sums=('424fbb890479f3377c7b3ca6b94f59674fa51e51c96b9d0cc1c998acb12eff01'
-            '424c757a6a62409f18da4379e36187760653250f28cc105332900c1ed27d7757'
+sha256sums=('530cb48a3bd084367d65f89a3e52af90676e155a65c39d3967726a5a4337339b'
+            '924f54096011200dd1cb299a782d3fcc57466bcb93b5222cb73d6e4b9e70b4e9'
             '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
             '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326')
 
 pkgver() {
-  printf %s%s.%s.g%s "$_basekernel" "$_rc" "$(date +%y%m%d)" "${_commit:0:7}"
+  printf %s%s "$_basekernel" "$_rc"
 }
 
 prepare() {
-  cd linux-$_commit
+  cd linux-$_basekernel-$_rc
 #  cd "linux-${_basekernel}"
 
   # add upstream patch
@@ -100,7 +98,7 @@ prepare() {
 }
 
 build() {
-  cd linux-$_commit
+  cd linux-$_basekernel-$_rc
 #  cd "linux-${_basekernel}"
 
   msg "build"
@@ -113,7 +111,7 @@ package_linux519() {
   optdepends=('wireless-regdb: to set the correct wireless channels of your country')
   provides=("linux=${pkgver}" VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
-  cd linux-$_commit
+  cd linux-$_basekernel-$_rc
 #  cd "linux-${_basekernel}"
 
   # get kernel version
@@ -153,7 +151,7 @@ package_linux519-headers() {
   depends=('gawk' 'python' 'libelf' 'pahole')
   provides=("linux-headers=$pkgver")
 
-  cd linux-$_commit
+  cd linux-$_basekernel-$_rc
 #  cd "linux-${_basekernel}"
   local _builddir="${pkgdir}/usr/lib/modules/${_kernver}/build"
 
