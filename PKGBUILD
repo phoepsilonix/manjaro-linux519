@@ -5,7 +5,7 @@
 # Thomas Baechler <thomas@archlinux.org>
 
 _basekernel=5.19
-_rc=rc2
+_rc=rc3
 pkgrel=1
 _basever=${_basekernel//.}
 _kernelname=-MANJARO
@@ -43,7 +43,7 @@ source=("https://git.kernel.org/torvalds/t/linux-${_basekernel}-${_rc}.tar.gz"
 #        '0412-bootsplash.patch'
 #        '0413-bootsplash.gitpatch'
          )
-sha256sums=('530cb48a3bd084367d65f89a3e52af90676e155a65c39d3967726a5a4337339b'
+sha256sums=('d38da4f2094651d1ee766e864982df2433af33daed0b7bd159c52e2fa9d5f1cd'
             '924f54096011200dd1cb299a782d3fcc57466bcb93b5222cb73d6e4b9e70b4e9'
             '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
             '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326')
