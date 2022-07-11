@@ -5,13 +5,13 @@
 # Thomas Baechler <thomas@archlinux.org>
 
 _basekernel=5.19
-_rc=rc5
+_rc=rc6
 pkgrel=1
 _basever=${_basekernel//.}
 _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
-pkgver=5.19rc5
+pkgver=5.19rc6
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
@@ -43,7 +43,7 @@ source=("https://git.kernel.org/torvalds/t/linux-${_basekernel}-${_rc}.tar.gz"
 #        '0412-bootsplash.patch'
 #        '0413-bootsplash.gitpatch'
          )
-sha256sums=('7aa05b40165aa9ec60c7a9b78c0a14ff41d601d1db02e4f7b2565631986b86dd'
+sha256sums=('4589a4237cb3d17061a0c940fd44e1c87796794eda64fe729c4e916c9d30c579'
             '1419b97150acdfdfba5b26ec579d7c402e91aa9aee1c4df0379c93ee11f2cffb'
             '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
             '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326')
