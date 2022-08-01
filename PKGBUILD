@@ -5,28 +5,26 @@
 # Thomas Baechler <thomas@archlinux.org>
 
 _basekernel=5.19
-_rc=rc8
-pkgrel=1
 _basever=${_basekernel//.}
 _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
-pkgver=5.19rc8
+pkgver=5.19.0
+pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 makedepends=(bc docbook-xsl libelf pahole git inetutils kmod xmlto cpio perl tar xz)
 options=('!strip')
-source=("https://git.kernel.org/torvalds/t/linux-${_basekernel}-${_rc}.tar.gz"
-        #"https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
-        #"https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
+#        "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         'config'
         # ARCH Patches
         '0101-ZEN_Add_sysctl_and_CONFIG_to_disallow_unprivileged_CLONE_NEWUSER.patch'
         # MANJARO Patches
 
         # Bootsplash
-        '0301-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
+#        '0301-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
 #        '0302-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
 #        '0303-revert-fbcon-remove-soft-scrollback-code.patch'
 #        '0401-bootsplash.patch'
@@ -41,20 +39,14 @@ source=("https://git.kernel.org/torvalds/t/linux-${_basekernel}-${_rc}.tar.gz"
 #        '0410-bootsplash.patch'
 #        '0411-bootsplash.patch'
 #        '0412-bootsplash.patch'
-#        '0413-bootsplash.gitpatch'
-         )
-sha256sums=('1f52eb88e511c3b7f7e3373418195f0db5d2acf9ff7623554371537bf785399a'
-            '1419b97150acdfdfba5b26ec579d7c402e91aa9aee1c4df0379c93ee11f2cffb'
-            '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
-            '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326')
-
-pkgver() {
-  printf %s%s "$_basekernel" "$_rc"
-}
+#        '0413-bootsplash.gitpatch'         )
+)
+sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
+            'b74160bfc1673c7bcc85d93df491e85ddc046302cc3a2067b0f781e56b8b453b'
+            '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467')
 
 prepare() {
-  cd linux-$_basekernel-$_rc
-#  cd "linux-${_basekernel}"
+  cd "linux-${_basekernel}"
 
   # add upstream patch
 #  msg "add upstream patch"
@@ -83,9 +75,6 @@ prepare() {
   msg "set extraversion to pkgrel"
   sed -ri "s|^(EXTRAVERSION =).*|\1 -${pkgrel}|" Makefile
 
-  # set patchlevel to 19
-  sed -ri "s|^(PATCHLEVEL =).*|\1 19|" Makefile
-
   msg "don't run depmod on 'make install'"
   # We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
@@ -98,8 +87,7 @@ prepare() {
 }
 
 build() {
-  cd linux-$_basekernel-$_rc
-#  cd "linux-${_basekernel}"
+  cd "linux-${_basekernel}"
 
   msg "build"
   make ${MAKEFLAGS} LOCALVERSION= bzImage modules
@@ -111,8 +99,7 @@ package_linux519() {
   optdepends=('wireless-regdb: to set the correct wireless channels of your country')
   provides=("linux=${pkgver}" VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
-  cd linux-$_basekernel-$_rc
-#  cd "linux-${_basekernel}"
+  cd "linux-${_basekernel}"
 
   # get kernel version
   _kernver="$(make LOCALVERSION= kernelrelease)"
@@ -151,8 +138,7 @@ package_linux519-headers() {
   depends=('gawk' 'python' 'libelf' 'pahole')
   provides=("linux-headers=$pkgver")
 
-  cd linux-$_basekernel-$_rc
-#  cd "linux-${_basekernel}"
+  cd "linux-${_basekernel}"
   local _builddir="${pkgdir}/usr/lib/modules/${_kernver}/build"
 
   install -Dt "${_builddir}" -m644 Makefile .config Module.symvers
