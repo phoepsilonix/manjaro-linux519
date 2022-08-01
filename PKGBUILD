@@ -21,6 +21,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         'config'
         # ARCH Patches
         '0101-ZEN_Add_sysctl_and_CONFIG_to_disallow_unprivileged_CLONE_NEWUSER.patch'
+        '0102-soundwire_Raise_DEFAULT_PROBE_TIMEOUT_to_10000_ms.patch'
+        '0103-drm_i915_psr_Use_full_update_In_case_of_area_calculation_fails.patch'
+        '0104-drm_i915_Ensure_damage_clip_area_is_within_pipe_area.patch'
         # MANJARO Patches
 
         # Bootsplash
@@ -43,7 +46,10 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
 )
 sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
             'b74160bfc1673c7bcc85d93df491e85ddc046302cc3a2067b0f781e56b8b453b'
-            '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467')
+            '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
+            '02b035fa598f9e281b9b5b645809d1bcacfa189c733dc291b4305c77cde52960'
+            'c0a9c427b55bd1c13ccebbb503926c4ce30823fcec6d1a949fec981a4ec3a367'
+            'b8701a6316fb286b44adb703528462303f361d9c7af9667fb19553c4ac90816c')
 
 prepare() {
   cd "linux-${_basekernel}"
