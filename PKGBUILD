@@ -10,7 +10,7 @@ _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
 pkgver=5.19.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
@@ -27,29 +27,45 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         # MANJARO Patches
 
         # Bootsplash
-#        '0301-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
-#        '0302-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
-#        '0303-revert-fbcon-remove-soft-scrollback-code.patch'
-#        '0401-bootsplash.patch'
-#        '0402-bootsplash.patch'
-#        '0403-bootsplash.patch'
-#        '0404-bootsplash.patch'
-#        '0405-bootsplash.patch'
-#        '0406-bootsplash.patch'
-#        '0407-bootsplash.patch'
-#        '0408-bootsplash.patch'
-#        '0409-bootsplash.patch'
-#        '0410-bootsplash.patch'
-#        '0411-bootsplash.patch'
-#        '0412-bootsplash.patch'
-#        '0413-bootsplash.gitpatch'         )
-)
+        '0301-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
+        '0302-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
+        '0303-revert-fbcon-remove-soft-scrollback-code.patch'
+        '0401-bootsplash.patch'
+        '0402-bootsplash.patch'
+        '0403-bootsplash.patch'
+        '0404-bootsplash.patch'
+        '0405-bootsplash.patch'
+        '0406-bootsplash.patch'
+        '0407-bootsplash.patch'
+        '0408-bootsplash.patch'
+        '0409-bootsplash.patch'
+        '0410-bootsplash.patch'
+        '0411-bootsplash.patch'
+        '0412-bootsplash.patch'
+        '0413-bootsplash.gitpatch'         )
+
 sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
-            'b74160bfc1673c7bcc85d93df491e85ddc046302cc3a2067b0f781e56b8b453b'
+            '25276b26536c6239cf89f375accd8e3e69daa64e2e04aed917bd6ce7e6c706c9'
             '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
             '02b035fa598f9e281b9b5b645809d1bcacfa189c733dc291b4305c77cde52960'
             'c0a9c427b55bd1c13ccebbb503926c4ce30823fcec6d1a949fec981a4ec3a367'
-            'b8701a6316fb286b44adb703528462303f361d9c7af9667fb19553c4ac90816c')
+            'b8701a6316fb286b44adb703528462303f361d9c7af9667fb19553c4ac90816c'
+            '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326'
+            '94a8538251ad148f1025cc3de446ce64f73dc32b01815426fb159c722e8fa5bc'
+            '0be5f1ce0ef47dd99fc15d65c314cb0c03345a44de49311d63604d145ce895ec'
+            '57ce3e0ba6bf400d36358a9d30589905f6e51bc037d7165f5a2658b6bdc86793'
+            'a26b3abaec1cd5731bc8431fecb8b3eb0ba47c1992e614643320df14ff859556'
+            '8c1c880f2caa9c7ae43281a35410203887ea8eae750fe8d360d0c8bf80fcc6e0'
+            '1144d51e5eb980fceeec16004f3645ed04a60fac9e0c7cf88a15c5c1e7a4b89e'
+            'dd4b69def2efacf4a6c442202ad5cb93d492c03886d7c61de87696e5a83e2846'
+            '028b07f0c954f70ca37237b62e04103e81f7c658bb8bd65d7d3c2ace301297dc'
+            'a0c548c5703d25ae34b57931f1162de8b18937e676e5791a0f039922090881e7'
+            '8dbb5ab3cb99e48d97d4e2f2e3df5d0de66f3721b4f7fd94a708089f53245c77'
+            'a7aefeacf22c600fafd9e040a985a913643095db7272c296b77a0a651c6a140a'
+            'cf06d959a53eff6d3c287327f1cb2a68346d725cfd1370bc7482a0edc75692fc'
+            '27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc'
+            'b6e695edbe349505a89c98054a54443acd90830a312cd035393c5c0a624e45c0'
+            '035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef')
 
 prepare() {
   cd "linux-${_basekernel}"
