@@ -10,7 +10,7 @@ _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
 pkgver=5.19.0
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
@@ -52,7 +52,7 @@ sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
             'b8701a6316fb286b44adb703528462303f361d9c7af9667fb19553c4ac90816c'
             '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326'
             '94a8538251ad148f1025cc3de446ce64f73dc32b01815426fb159c722e8fa5bc'
-            '0be5f1ce0ef47dd99fc15d65c314cb0c03345a44de49311d63604d145ce895ec'
+            '85d39aa2c229081a329ca93ee2e353d1538730389c978a8539f8f4923b274b49'
             '57ce3e0ba6bf400d36358a9d30589905f6e51bc037d7165f5a2658b6bdc86793'
             'a26b3abaec1cd5731bc8431fecb8b3eb0ba47c1992e614643320df14ff859556'
             '8c1c880f2caa9c7ae43281a35410203887ea8eae750fe8d360d0c8bf80fcc6e0'
