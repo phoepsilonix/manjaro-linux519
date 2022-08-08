@@ -7,16 +7,18 @@
 _basekernel=5.19
 _basever=${_basekernel//.}
 _kernelname=-MANJARO
+_commit=b70675a5fd62e27d631466ec3310f481e0084acd
+_srcname=linux-${_commit}
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
 pkgver=5.19.0
 pkgrel=4
 arch=('x86_64')
-url="https://www.kernel.org/"
+url="https://github.com/thesofproject/linux/tree/es8336-v5.19"
 license=('GPL2')
 makedepends=(bc docbook-xsl libelf pahole git inetutils kmod xmlto cpio perl tar xz)
 options=('!strip')
-source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
+source=("https://github.com/thesofproject/linux/archive/${_commit}.tar.gz"
 #        "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         'config'
         # ARCH Patches
@@ -41,10 +43,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         '0409-bootsplash.patch'
         '0410-bootsplash.patch'
         '0411-bootsplash.patch'
-        '0412-bootsplash.patch'
-        '0413-bootsplash.gitpatch'         )
+        '0412-bootsplash.patch')
 
-sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
+sha256sums=('1f39a84c634715b709df23771215fb5d70224dae13aa457fdb1bd40acadf2636'
             '25276b26536c6239cf89f375accd8e3e69daa64e2e04aed917bd6ce7e6c706c9'
             '05f04019d4a2ee072238c32860fa80d673687d84d78ef436ae9332b6fb788467'
             '02b035fa598f9e281b9b5b645809d1bcacfa189c733dc291b4305c77cde52960'
@@ -64,12 +65,10 @@ sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
             'a7aefeacf22c600fafd9e040a985a913643095db7272c296b77a0a651c6a140a'
             'cf06d959a53eff6d3c287327f1cb2a68346d725cfd1370bc7482a0edc75692fc'
             '27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc'
-            'b6e695edbe349505a89c98054a54443acd90830a312cd035393c5c0a624e45c0'
-            '035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef')
+            'b6e695edbe349505a89c98054a54443acd90830a312cd035393c5c0a624e45c0')
 
 prepare() {
-  cd "linux-${_basekernel}"
-
+  cd "${srcdir}/${_srcname}"
   # add upstream patch
 #  msg "add upstream patch"
 #  patch -p1 -i "../patch-${pkgver}"
@@ -109,8 +108,7 @@ prepare() {
 }
 
 build() {
-  cd "linux-${_basekernel}"
-
+  cd "${srcdir}/${_srcname}"
   msg "build"
   make ${MAKEFLAGS} LOCALVERSION= bzImage modules
 }
@@ -121,7 +119,7 @@ package_linux519() {
   optdepends=('wireless-regdb: to set the correct wireless channels of your country')
   provides=("linux=${pkgver}" VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
-  cd "linux-${_basekernel}"
+  cd "${srcdir}/${_srcname}"
 
   # get kernel version
   _kernver="$(make LOCALVERSION= kernelrelease)"
@@ -160,7 +158,7 @@ package_linux519-headers() {
   depends=('gawk' 'python' 'libelf' 'pahole')
   provides=("linux-headers=$pkgver")
 
-  cd "linux-${_basekernel}"
+  cd "${srcdir}/${_srcname}"
   local _builddir="${pkgdir}/usr/lib/modules/${_kernver}/build"
 
   install -Dt "${_builddir}" -m644 Makefile .config Module.symvers
