@@ -10,14 +10,14 @@ _kernelname=-MANJARO
 pkgbase=linux${_basever}
 pkgname=("$pkgbase" "$pkgbase-headers")
 pkgver=5.19.1
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 makedepends=(bc docbook-xsl libelf pahole git inetutils kmod xmlto cpio perl tar xz)
 options=('!strip')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
-#        "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         'config'
         # ARCH Patches
         '0101-ZEN_Add_sysctl_and_CONFIG_to_disallow_unprivileged_CLONE_NEWUSER.patch'
@@ -42,7 +42,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         '0410-bootsplash.patch'
         '0411-bootsplash.patch'
         '0412-bootsplash.patch'
-        '0413-bootsplash.gitpatch'         )
+        '0413-bootsplash.gitpatch')
 
 sha256sums=('ff240c579b9ee1affc318917de07394fc1c3bb49dac25ec1287370c2e15005a8'
             'f4ee72d333d1fd2160ebd23f7f3c52ac2e577caa9e79b88f333ef3cf5f57d80e'
@@ -71,8 +71,8 @@ prepare() {
   cd "linux-${_basekernel}"
 
   # add upstream patch
-#  msg "add upstream patch"
-#  patch -p1 -i "../patch-${pkgver}"
+  msg "add upstream patch"
+  patch -p1 -i "../patch-${pkgver}"
 
   local src
   for src in "${source[@]}"; do
@@ -82,9 +82,6 @@ prepare() {
       msg2 "Applying patch: $src..."
       patch -Np1 < "../$src"
   done
-
-#  msg2 "0413-bootsplash"
-#  git apply -p1 < "../0413-bootsplash.gitpatch"
 
   msg2 "add config"
   cat "../config" > ./.config
